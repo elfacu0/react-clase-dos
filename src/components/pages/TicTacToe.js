@@ -56,38 +56,20 @@ const getWinner = (tiles) => {
   // (existen varias formas de calcular esto, una posible es listar todos los
   // casos en los que un jugador gana y ver si alguno sucede)
   // Ain't nobody got time for that
-  if (tiles[0] !== '' && tiles[0] === tiles[1] && tiles[1] === tiles[2]) {
-    return tiles[0];
+  const aux = [0,1,2,3,4,5,6,7,8,0,3,6,1,4,7,2,5,8,0,4,8,2,4,7];
+  for(let i = 0;i<aux.length;i+=3){
+    if(tiles[aux[i]] !== '' && tiles[aux[i]] === tiles[aux[i+1]] && tiles[aux[i+1]] === tiles[aux[i+2]]){
+      return tiles[aux[i]];
+    }
   }
-  if (tiles[3] !== '' && tiles[3] === tiles[4] && tiles[4] === tiles[5]) {
-    return tiles[3];
-  }
-  if (tiles[6] !== '' && tiles[6] === tiles[7] && tiles[7] === tiles[8]) {
-    return tiles[6];
-  }
-  if (tiles[0] !== '' && tiles[0] === tiles[3] && tiles[3] === tiles[6]) {
-    return tiles[0];
-  }
-  if (tiles[1] !== '' && tiles[1] === tiles[4] && tiles[4] === tiles[7]) {
-    return tiles[1];
-  }
-  if (tiles[2] !== '' && tiles[2] === tiles[5] && tiles[5] === tiles[8]) {
-    return tiles[2];
-  }
-  if (tiles[0] !== '' && tiles[0] === tiles[4] && tiles[4] === tiles[8]) {
-    return tiles[0];
-  }
-  if (tiles[2] !== '' && tiles[2] === tiles[4] && tiles[4] === tiles[6]) {
-    return tiles[2];
-  }
-  return null;
+  return null
 };
 
 const useTicTacToeGameState = (initialPlayer) => {
   const [tiles, setTiles] = useState(['', '', '', '', '', '', '', '', '']);
   const [currentPlayer, setCurrentPlayer] = useState(initialPlayer);
   const winner = getWinner(tiles);
-  const gameEnded = (winner === 'O' || winner === 'X');
+  const gameEnded = (winner === 'O' || winner === 'X' || tiles.includes('')!==true);
 
   const setTileTo = (tileIndex, player) => {
     // convertir el tile en la posición tileIndex al jugador seleccionado
